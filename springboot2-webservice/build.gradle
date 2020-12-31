@@ -1,0 +1,29 @@
+buildscript {
+//    ext : build.gradle에서 사용하는 전역변수를 설정하겠다. 
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        mavenCentral();
+        jcenter();
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
