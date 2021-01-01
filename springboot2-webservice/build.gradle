@@ -1,5 +1,5 @@
 buildscript {
-//    ext : build.gradle에서 사용하는 전역변수를 설정하겠다. 
+//    ext : build.gradle에서 사용하는 전역변수를 설정하겠다.
     ext {
         springBootVersion = '2.1.7.RELEASE'
     }
@@ -14,6 +14,9 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 group 'com.jojoldu.book'
