@@ -2,12 +2,10 @@ import jpql.Member;
 import jpql.MemberDto;
 import jpql.Team;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMain {
@@ -24,29 +22,50 @@ public class JpaMain {
 
             try {
 
-                for(int i = 0 ; i < 100; i++) {
 
-                    Team team = new Team();
-                    team.setName("team"+i);
-                    em.persist(team);
 
-                    Member member = new Member();
-                    member.setUserName("userName");
-                    member.setAge(10);
-                    member.changeTeam(team);
-                    em.persist(member);
-                }
+                    Team team1 = new Team();
+                    team1.setName("team1");
+                    em.persist(team1);
+
+                    Team team2 = new Team();
+                    team2.setName("team2");
+                    em.persist(team2);
+
+                    Member member1 = new Member();
+                    member1.setUserName("member1");
+                    member1.setAge(10);
+                    member1.changeTeam(team1);
+                    em.persist(member1);
+
+                Member member2 = new Member();
+                member2.setUserName("member2");
+                member2.setAge(10);
+                member2.changeTeam(team1);
+                em.persist(member2);
+
+                Member member3 = new Member();
+                member3.setUserName("member3");
+                member3.setAge(10);
+                member3.changeTeam(team2);
+                em.persist(member3);
+
 
                     em.flush();
                     em.clear();
 
-                    String query = "select m from Member m left join Team t on m.userName = t.name";
-                    List<Member> result = em.createQuery(query, Member.class)
+                    String query = "select  t from Team t join t.members";
+//                    String query = "select m.userName FROM Member m";
 
-                            .getResultList();
 
-                    for(Member m : result) {
-                        System.out.println(m);
+
+                    List<Team> result = em.createQuery(query, Team.class).getResultList();
+
+                    for(Team o : result) {
+                        System.out.println("team name :"+o.getName()+"   members.size :"+o.getMembers().size());
+                            for(Member m : o.getMembers()) {
+                                System.out.println(m);
+                            }
                     }
 
                 tr.commit();

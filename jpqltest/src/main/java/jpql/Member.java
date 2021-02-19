@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = "team")
+@ToString
 @Entity
 public class Member {
 
