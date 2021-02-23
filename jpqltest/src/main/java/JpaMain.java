@@ -54,19 +54,15 @@ public class JpaMain {
                     em.flush();
                     em.clear();
 
-                    String query = "select  t from Team t join t.members";
+                    String query = "select m from Member m where m.team = :team1";
 //                    String query = "select m.userName FROM Member m";
 
 
 
-                    List<Team> result = em.createQuery(query, Team.class).getResultList();
+                    int resultcount = em.createQuery("update Member m set m.age = 20")
+                            .executeUpdate()
+                            ;
 
-                    for(Team o : result) {
-                        System.out.println("team name :"+o.getName()+"   members.size :"+o.getMembers().size());
-                            for(Member m : o.getMembers()) {
-                                System.out.println(m);
-                            }
-                    }
 
                 tr.commit();
 
